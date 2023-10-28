@@ -29,16 +29,16 @@ class BookDetailsScreenBody extends StatelessWidget {
                 const BookDetailsScreenAppBar(),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: width * 0.2),
-                  child:  BookImage(imageUlr: bookModel.volumeInfo.imageLinks?.thumbnail?? '',),
+                  child:  BookImage(imageUlr: bookModel.volumeInfo!.imageLinks?.thumbnail?? '',),
                 ),
                 const SizedBox(height: 42),
                  Text(
-                  bookModel.volumeInfo.title!,
+                  bookModel.volumeInfo!.title!,
                   style: Styles.textStyle30,
                 ),
                 const SizedBox(height: 6),
                 Text(
-                  bookModel.volumeInfo.authors?[0] ?? '',
+                  bookModel.volumeInfo!.authors?[0] ?? '',
                   style: Styles.textStyle18.copyWith(
                     fontStyle: FontStyle.italic,
                     fontWeight: FontWeight.normal,
@@ -47,8 +47,8 @@ class BookDetailsScreenBody extends StatelessWidget {
                 ),
 
                 const SizedBox(height: 18),
-                 BookRating(rating: bookModel.volumeInfo.averageRating ?? 0,
-                   count: bookModel.volumeInfo.ratingsCount ?? 2),
+                 BookRating(rating: bookModel.volumeInfo!.averageRating ?? 0,
+                   count: bookModel.volumeInfo!.ratingsCount ?? 2),
                 const SizedBox(height: 37),
 
                 const Padding(

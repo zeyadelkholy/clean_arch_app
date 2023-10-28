@@ -30,7 +30,7 @@ class BookListView extends StatelessWidget {
                           extra: state.books[index]);
                     },
                     child: BookImage(
-                        imageUlr: state.books[index].volumeInfo.imageLinks
+                        imageUlr: state.books[index].volumeInfo?.imageLinks
                                 ?.thumbnail ??
                             ''),
                   ),

@@ -42,7 +42,7 @@ class _BookListViewItemState extends State<BookListViewItem> {
             //  ),
 
             BookImage(
-                imageUlr: widget.bookModel.volumeInfo.imageLinks!.thumbnail),
+                imageUlr: widget.bookModel.volumeInfo!.imageLinks!.thumbnail),
             const SizedBox(width: 30),
 
             Expanded(
@@ -51,7 +51,7 @@ class _BookListViewItemState extends State<BookListViewItem> {
                 children: [
                   SizedBox(
                     width: MediaQuery.of(context).size.width * .5,
-                    child: Text(widget.bookModel.volumeInfo.title!,
+                    child: Text(widget.bookModel.volumeInfo!.title!,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: Styles.textStyle20
@@ -61,7 +61,7 @@ class _BookListViewItemState extends State<BookListViewItem> {
                     height: 3,
                   ),
                   Text(
-                    widget.bookModel.volumeInfo.authors![0],
+                    widget.bookModel.volumeInfo!.authors![0],
                     style:
                         Styles.textStyle14.copyWith(fontFamily: GtSectraFine),
                   ),
@@ -80,8 +80,8 @@ class _BookListViewItemState extends State<BookListViewItem> {
                       ),
                       const Spacer(),
                       BookRating(
-                        rating: widget.bookModel.volumeInfo.averageRating ?? 0,
-                        count: widget.bookModel.volumeInfo.ratingsCount ?? 0,
+                        rating: widget.bookModel.volumeInfo!.averageRating ?? 0,
+                        count: widget.bookModel.volumeInfo!.ratingsCount ?? 0,
                       ),
                     ],
                   ),
