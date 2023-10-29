@@ -1,3 +1,5 @@
+import 'package:hive/hive.dart';
+
 import '../../damain layer/entities/book_entity.dart';
 
 abstract class HomeLocalDataSource {
@@ -9,14 +11,18 @@ abstract class HomeLocalDataSource {
 class HomeLocalDataSourceImplementation extends HomeLocalDataSource{
   @override
   List<BookEntity> fetchFeaturedBooks() {
-    // TODO: implement fetchFeaturedBooks
-    throw UnimplementedError();
+   var box = Hive.box<BookEntity>('featured_box');
+
+   // must convert collection of values into list
+   return box.values.toList();
   }
 
   @override
   List<BookEntity> fetchNewestBooks() {
-    // TODO: implement fetchNewestBooks
-    throw UnimplementedError();
+    var box = Hive.box<BookEntity>('newest_box');
+
+    // must convert collection of values into list
+    return box.values.toList();
   }
 
 

@@ -37,6 +37,9 @@ class HomeRemoteDataSourceImplementation extends HomeRemoteDataSource{
     for( var bookMap in data['item']){
       books.add( BookModel.fromJson(bookMap));
     }
+
+    // save local data
+    saveboxData(books , 'newest_box');
     return books;
   }
 
