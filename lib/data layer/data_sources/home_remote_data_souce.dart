@@ -1,6 +1,6 @@
 import 'package:clean_arch_booklyapp/core/api%20service/api_service.dart';
 import 'package:clean_arch_booklyapp/data%20layer/models/book_model/book_model.dart';
-
+import '../../core/utils/save_books.dart';
 import '../../damain layer/entities/book_entity.dart';
 
 abstract class HomeRemoteDataSource {
@@ -21,8 +21,14 @@ class HomeRemoteDataSourceImplementation extends HomeRemoteDataSource{
   for( var bookMap in data['item']){
         books.add( BookModel.fromJson(bookMap));
   }
+
+  // save local data
+  saveboxData(books , 'featured_box');
+
     return books;
   }
+
+
 
   @override
   Future<List<BookEntity>> fetchNewestBooks() async {
