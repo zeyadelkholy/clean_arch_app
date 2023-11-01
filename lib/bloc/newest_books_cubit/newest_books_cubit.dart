@@ -1,31 +1,27 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import '../../damain layer/entities/book_entity.dart';
-import '../../data layer/models/book_model/book_model.dart';
-import '../../data layer/repositories/home_screen_repo.dart';
-
+import '../../damain layer/use_cases/fetch_newest_books_use_case.dart';
 part 'newest_books_state.dart';
 
 class NewestBooksCubit extends Cubit<NewestBooksState> {
-  NewestBooksCubit(this.homeRepo) : super(NewestBooksInitial());
+  NewestBooksCubit( this.fetchNewestBooksUseCase) : super(NewestBooksInitial());
 
-  final HomeRepo homeRepo;
+  final FetchNewestBooksUseCase fetchNewestBooksUseCase;
 
-  Future<void> fetchNewestBooks() async {
-
+  Future<void> fetchFeaturedBooks() async {
     emit(NewestBooksLoading());
 
-    var result = await homeRepo.fetchNewestBooks();
-    // result have 2 cases (left,right)
-    result.fold(
-          (failure) {
-        emit(NewestBooksFailure(failure.errorMessage));
-      },
+    var result = await fetchNewestBooksUseCase.call();
 
-          (books) {
-        emit(NewestBooksSuccess(books));
-      },
-    );
+    // هيشوف جاله ايه وينفذه
+    result.fold((failure) {
+      emit(NewestBooksFailure(failure.errorMessage));
+    },
+
+            (books) {
+          emit(NewestBooksSuccess(books));
+        });
   }
 
 
