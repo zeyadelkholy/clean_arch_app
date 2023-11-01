@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import '../../damain layer/entities/book_entity.dart';
 import '../../data layer/models/book_model/book_model.dart';
 import '../../data layer/repositories/home_screen_repo.dart';
 part 'featured_books_state.dart';
