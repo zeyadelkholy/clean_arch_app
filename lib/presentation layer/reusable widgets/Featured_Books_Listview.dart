@@ -4,11 +4,45 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../bloc/featured_books_cubit/featured_books_cubit.dart';
+import '../../damain layer/entities/book_entity.dart';
 import 'Book_image.dart';
 import 'custom_error_message.dart';
 
-class BookListView extends StatelessWidget {
-  const BookListView({Key? key}) : super(key: key);
+class FeaturedBookListView extends StatefulWidget {
+  const FeaturedBookListView({Key? key, required this.books}) : super(key: key);
+
+   final List<BookEntity> books;
+
+  @override
+  State<FeaturedBookListView> createState() => _FeaturedBookListViewState();
+}
+
+class _FeaturedBookListViewState extends State<FeaturedBookListView> {
+ final ScrollController scrollController = ScrollController();
+
+ @override
+ void initState(){
+   super.initState();
+   scrollController.addListener(scrollController as VoidCallback);
+ }
+
+ // هيجيب الداتا لما اوصل ل 70% من الكتب اللي عندي
+ void scrollListener(){
+   var currentPosition = scrollController.position.pixels;
+   var maxScrollLength = scrollController.position.maxScrollExtent;
+   if (currentPosition>= 0.7* maxScrollLength)
+   {
+     BlocProvider.of<FeaturedBooksCubit>(context).fetchFeaturedBooks();
+
+   }
+ }
+
+
+ @override
+ void dispose(){
+   scrollController.dispose();
+   super.dispose();
+ }
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +52,7 @@ class BookListView extends StatelessWidget {
           return SizedBox(
             height: MediaQuery.of(context).size.height * .3,
             child: ListView.builder(
+              controller:scrollController ,
               physics: const BouncingScrollPhysics(),
               itemCount: state.books.length,
               scrollDirection: Axis.horizontal,
@@ -30,9 +65,7 @@ class BookListView extends StatelessWidget {
                           extra: state.books[index]);
                     },
                     child: BookImage(
-                        imageUlr: state.books[index].volumeInfo?.imageLinks
-                                ?.thumbnail ??
-                            ''),
+                        imageUlr: widget.books[index].image ?? ''),
                   ),
                 );
               },
